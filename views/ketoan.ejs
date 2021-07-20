@@ -18,8 +18,12 @@
             <div class="row">
                 <% for(var i=0;i<products.length;i++){ %>
                     <div class="item">
-                        <img src="<%= products[i].image %>"/>
-                        <h2><%= products[i].name %></h2>
+                        <a href="/chi-tiet?id=<%= products[i].id %>">
+                            <img src="<%= products[i].image %>"/>
+                        </a>
+                        <a href="/chi-tiet2/<%= products[i].id %>">
+                            <h2><%= products[i].name %></h2>
+                        </a>
                     </div>
                 <% } %>
 

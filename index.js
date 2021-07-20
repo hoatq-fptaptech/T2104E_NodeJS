@@ -48,3 +48,34 @@ app.get("/ke-toan",function (req,res){
         products:products
     });
 });
+
+app.get("/chi-tiet",function (req,res){
+    var masp = req.query.id;
+    // khi co id, tim kiem theo id trong array
+    var p = {};
+    for(var i=0;i<products.length;i++){
+        if(products[i].id == masp){
+            p = products[i];
+            break;
+        }
+    }
+    res.render("chitiet",{
+        masp:masp,
+        p: p
+    });
+});
+// su dung tham so tinh
+app.get("/chi-tiet2/:id",function (req,res){
+    var masp = req.params.id;
+    var p = {};
+    for(var i=0;i<products.length;i++){
+        if(products[i].id == masp){
+            p = products[i];
+            break;
+        }
+    }
+    res.render("chitiet",{
+        masp:masp,
+        p: p
+    });
+})

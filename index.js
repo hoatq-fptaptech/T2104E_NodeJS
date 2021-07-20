@@ -6,6 +6,7 @@ app.listen(port,function (){
 });
 // cap quyen truy cap cac file static (css, img, jquery...)
 app.use(express.static("public"));
+
 // routing - bo dinh tuyen (nhan vien cua van phong)
 app.get("/",function (req,res){ // trang chu
     // res.send("<html><head><title</head></html>"); // html- chỉ là 1 chuỗi đối với máy chủ

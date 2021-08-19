@@ -51,11 +51,30 @@ app.get("/",function (req,res){ // trang chu
 app.get("/khach-hang",function (req,res){
     // can lay danh sach khach hang
     var txt_sql = "select * from Ass5_KhachHang;";
-    sql.query(txt_sql,function (err,rows){
+    sql.query(txt_sql,function (err,rs){
         if(err) res.send(err);
-        else res.send(rows.recordset);
+        else res.send(rs.recordset);// rows.recordset : 1 array, mỗi element là 1 object từ table
     })
 });
 // liet ke danh sachs hang hoa
-
+app.get("/hang-hoa",function (req,res){
+    // lay thong tin tu form tim kiem
+    var kw = req.query.keyword||"";
+    // can lay danh sach khach hang
+    var txt_sql = "select * from Ass5_HangHoa where TenSP like '%"+kw+"%';";
+    sql.query(txt_sql,function (err,rs){
+        if(err) res.send(err);
+        else res.render("home",{
+            hanghoa:rs.recordset
+        })
+    })
+});
 // liet ke danh sach don hang
+app.get("/don-hang",function (req,res){
+    // can lay danh sach khach hang
+    var txt_sql = "select * from Ass5_DonHang inner join Ass5_KhachHang on Ass5_DonHang.KhachHangID = Ass5_KhachHang.ID;";
+    sql.query(txt_sql,function (err,rs){
+        if(err) res.send(err);
+        else res.send(rs.recordset);// rows.recordset : 1 array, mỗi element là 1 object từ table
+    })
+});

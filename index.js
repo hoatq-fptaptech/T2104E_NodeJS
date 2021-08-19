@@ -69,6 +69,18 @@ app.get("/hang-hoa",function (req,res){
         })
     })
 });
+app.get("/chi-tiet-sp",function (req,res){
+    var id = req.query.id;
+    var txt_sql = "select * from Ass5_HangHoa where MaSP = "+id+";";
+    sql.query(txt_sql,function (err,rs){
+        if(err) res.send(err);
+        else if(rs.recordset.length > 0){
+            res.render("chitiet",{
+                p:rs.recordset[0]
+            })
+        }else res.status(404).send('Not found?');
+    })
+})
 // liet ke danh sach don hang
 app.get("/don-hang",function (req,res){
     // can lay danh sach khach hang

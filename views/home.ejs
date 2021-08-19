@@ -29,6 +29,7 @@
                             <th>Mo ta</th>
                             <th>Gia</th>
                             <th>Don vi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +40,7 @@
                                 <td><%= hanghoa[i].MoTa %></td>
                                 <td><%= hanghoa[i].Gia %></td>
                                 <td><%= hanghoa[i].DonVi %></td>
+                                <td><a href="/chi-tiet-sp?id=<%= hanghoa[i].MaSP %>">Chi tiết</a> </td>
                             </tr>
                         <% } %>
                     </tbody>

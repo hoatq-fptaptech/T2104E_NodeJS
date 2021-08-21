@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <base href="http://localhost:5000/" />
+    <!-- Latest compiled and minified CSS -->
+    <%- include("head")%>
+    <link rel="stylesheet" href="css/demobootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="css/assignment3.css" type="text/css"/>
+</head>
+<body>
+<%- include("header")%>
+<%- include("nav")%>
+
+<section class="main col-md-12">
+    <div class="container">
+        <h1>Tạo đơn hàng</h1>
+        <div class="col-md-6">
+            <form action="/luu-don-hang" method="post">
+                <div class="form-group">
+                    <label>Khách hàng</label>
+                    <select class="form-control" name="KhachHangID">
+                        <% for (var i=0;i<khachhangs.length;i++){ %>
+                            <option value="<%= khachhangs[i].ID %>"><%= khachhangs[i].tenKH %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Chọn sản phẩm</label>
+                    <select multiple class="form-control" name="spIDs[]">
+                        <% for(var i=0;i<hanghoas.length;i++){ %>
+                            <option value="<%= hanghoas[i].MaSP %>"><%= hanghoas[i].TenSP %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<%- include("footer") %>
+</body>
+</html>

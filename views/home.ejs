@@ -15,13 +15,13 @@
     <div class="container">
         <div class="row">
             <article class="col-md-8 content">
-                <form action="/hang-hoa" method="get" class="col-md-6">
+                <form onsubmit="formsubmit()" method="get" class="col-md-6">
                     <div class="col-md-9">
                         <input type="text" name="keyword" class="form-control" placeholder="Tim kiem.."/>
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
-                <table class="table table-bordered table-striped">
+                <table id="list-hanghoa" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>MS</th>
@@ -29,20 +29,12 @@
                             <th>Mo ta</th>
                             <th>Gia</th>
                             <th>Don vi</th>
+                            <th>Thoi gian</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% for(var i=0;i<hanghoa.length;i++){ %>
-                            <tr>
-                                <td><%= hanghoa[i].MaSP %></td>
-                                <td><%= hanghoa[i].TenSP %></td>
-                                <td><%= hanghoa[i].MoTa %></td>
-                                <td><%= hanghoa[i].Gia %></td>
-                                <td><%= hanghoa[i].DonVi %></td>
-                                <td><a href="/chi-tiet-sp?id=<%= hanghoa[i].MaSP %>">Chi tiết</a> </td>
-                            </tr>
-                        <% } %>
+
                     </tbody>
                 </table>
             </article>
@@ -61,5 +53,77 @@
     </div>
 </section>
 <%- include("footer")%>
+<div class="bg-fade"></div>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/moment.js"></script>
+<script type="text/javascript">
+    $(".bg-fade").show();
+    var tm = "2021-08-24 09:12:30";
+    $.ajax({
+        // url:"/ajax-hang-hoa", // su dung ajax nhận về html
+        url:"/json-hang-hoa", // nhận về là json
+        method:"GET",
+        success:function (rs) {
+            // khi nhan ajax html
+            // $("#list-hanghoa tbody").html(rs);
+            // khi nhan api json
+            var html = "";
+            for(var i=0;i<rs.length;i++){
+                var li_html = "<tr>";
+                 li_html += "<td>"+rs[i].MaSP+"</td>";
+                 li_html += "<td>"+rs[i].TenSP+"</td>";
+                 li_html += "<td>"+rs[i].MoTa+"</td>";
+                 li_html += "<td>"+rs[i].Gia+"</td>";
+                 li_html += "<td>"+rs[i].DonVi+"</td>";
+                 li_html += "<td>"+moment(tm).format("DD/MM/YYYY h:mm:ss")+"</td>";
+                 li_html += "<td><a href='/chi-tiet-sp?id="+rs[i].MaSP+"'>Chi tiết</a></td>";
+                 li_html += "</tr>";
+                html += li_html;
+            }
+            $("#list-hanghoa tbody").html(html)
+            $(".bg-fade").hide();
+        },
+        error:function (err) {
+            alert("Rất tiếc đã xảy ra lỗi!");
+            $(".bg-fade").hide();
+        }
+    });
+    function formsubmit() {
+        $(".bg-fade").show();
+        var kw = $("input[name=keyword]").val();
+        $.ajax({
+            url:"/json-hang-hoa",
+            method:"GET",
+            data:{
+                keyword: kw
+            },
+            success:function (rs) {
+                // $("#list-hanghoa tbody").html(rs);
+
+                var html = "";
+                for(var i=0;i<rs.length;i++){
+                    var li_html = "<tr>";
+                    li_html += "<td>"+rs[i].MaSP+"</td>";
+                    li_html += "<td>"+rs[i].TenSP+"</td>";
+                    li_html += "<td>"+rs[i].MoTa+"</td>";
+                    li_html += "<td>"+rs[i].Gia+"</td>";
+                    li_html += "<td>"+rs[i].DonVi+"</td>";
+                    li_html += "<td>"+moment(tm).format("DD/MM/YYYY h:mm:ss")+"</td>";
+                    li_html += "<td><a href='/chi-tiet-sp?id="+rs[i].MaSP+"'>Chi tiết</a></td>";
+                    li_html += "</tr>";
+                    html += li_html;
+                }
+                $("#list-hanghoa tbody").html(html)
+
+                $(".bg-fade").hide();
+            },
+            error:function (err) {
+                alert("Rất tiếc đã xảy ra lỗi!");
+                $(".bg-fade").hide();
+            }
+        })
+        event.preventDefault();// chặn ko cho form submit theo kiểu html
+    }
+</script>
 </body>
 </html>

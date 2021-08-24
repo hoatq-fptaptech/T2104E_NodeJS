@@ -1,0 +1,10 @@
+<% for(var i=0;i<hanghoa.length;i++){ %>
+    <tr>
+        <td><%= hanghoa[i].MaSP %></td>
+        <td><%= hanghoa[i].TenSP %></td>
+        <td><%= hanghoa[i].MoTa %></td>
+        <td><%= hanghoa[i].Gia %></td>
+        <td><%= hanghoa[i].DonVi %></td>
+        <td><a href="/chi-tiet-sp?id=<%= hanghoa[i].MaSP %>">Chi tiết</a> </td>
+    </tr>
+<% } %>

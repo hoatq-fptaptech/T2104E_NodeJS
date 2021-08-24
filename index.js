@@ -78,15 +78,30 @@ app.post("/luu-khach-hang",function (req, res) {
 })
 // liet ke danh sachs hang hoa
 app.get("/hang-hoa",function (req,res){
+    res.render("home");
+});
+// cach 1 - tra ve html
+app.get("/ajax-hang-hoa",function (req,res){
     // lay thong tin tu form tim kiem
     var kw = req.query.keyword||"";
     // can lay danh sach khach hang
     var txt_sql = "select * from Ass5_HangHoa where TenSP like '%"+kw+"%';";
     sql.query(txt_sql,function (err,rs){
         if(err) res.send(err);
-        else res.render("home",{
+        else res.render("list",{
             hanghoa:rs.recordset // array
         })
+    })
+});
+// cach 2- tra ve json
+app.get("/json-hang-hoa",function (req,res){
+    // lay thong tin tu form tim kiem
+    var kw = req.query.keyword||"";
+    // can lay danh sach khach hang
+    var txt_sql = "select * from Ass5_HangHoa where TenSP like '%"+kw+"%';";
+    sql.query(txt_sql,function (err,rs){
+        if(err) res.send(err);
+        else res.send(rs.recordset);
     })
 });
 app.get("/chi-tiet-sp",function (req,res){
@@ -142,3 +157,8 @@ app.post("/luu-don-hang",function (req, res) {
         }
     })
 })
+
+// lam trang quan ly hang hoa
+// them sp
+
+// xoa sp

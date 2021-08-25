@@ -75,7 +75,7 @@ app.post("/luu-khach-hang",function (req, res) {
         if(err) res.status(403).send('Errors');
         else res.redirect("/khach-hang");
     })
-})
+}) // design pattern -- DAO pattern -- ORM -- SQL injection
 // liet ke danh sachs hang hoa
 app.get("/hang-hoa",function (req,res){
     res.render("home");
